@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <title>Новости</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel = "stylesheet" href ="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="~{blocks/header :: header}"></header>
+<main>
+    <h1>Админская</h1>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+
+    <a href="/add" class="btn btn-warning">Добавить статью</a><br>
+
+
+    <div class="container mt-5">
+        <h1>Блог сайта</h1>
+        <div th:each="el : ${posts}" class="alert alert-info mt-2">
+            <h3 th:text="${el.title}"></h3>
+            <p th:text="${el.anons}"></p>
+            <a th:href="${el.id} + '/edit'" class="btn btn-warning">Редактировать</a><br>
+            <form th:action="${el.id} + '/remove'" method="post">
+                <button th:href="${el.id} + '/remove'" class="btn btn-warning mt-3" type="submit">Удалить</button>
+            </form>
+        </div>
+    </div>
+
+</main>
+<footer th:insert="~{blocks/footer :: footer}"></footer>
+</body>
+</html>
